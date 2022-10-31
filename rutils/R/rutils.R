@@ -4,8 +4,8 @@
 #' @param pschema a predefined json schema
 #'
 #' @export
-validate_parameters <- function(params,pschema="pca_projection_schema.json"){
-  schemafile <- system.file("extdata", pschema, package = "rvispack")
+validate_parameters <- function(params,pschema="pca_projection_schema.json",cpackage = "rvispack"){
+  schemafile <- system.file("extdata", pschema, package = cpackage)
   jsonvalidate::json_validate(params,schemafile,verbose=TRUE,error=TRUE)
 }
 
