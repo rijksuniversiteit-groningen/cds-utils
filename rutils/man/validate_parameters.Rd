@@ -4,7 +4,11 @@
 \alias{validate_parameters}
 \title{Validate that a  json file meets a required schema}
 \usage{
-validate_parameters(params, pschema = "pca_projection_schema.json")
+validate_parameters(
+  params,
+  pschema = "pca_projection_schema.json",
+  cpackage = "rvispack"
+)
 }
 \arguments{
 \item{params}{a json file to be validated against a schema}
