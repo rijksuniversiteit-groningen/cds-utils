@@ -2,6 +2,7 @@
 #'
 #' @param params a json file to be validated against a schema
 #' @param pschema a predefined json schema
+#' @param cpackage the package that contains the JSON schema
 #'
 #' @export
 validate_parameters <- function(params,pschema="pca_projection_schema.json",cpackage = "rvispack"){

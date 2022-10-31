@@ -14,6 +14,8 @@ validate_parameters(
 \item{params}{a json file to be validated against a schema}
 
 \item{pschema}{a predefined json schema}
+
+\item{cpackage}{the package that contains the JSON schema}
 }
 \description{
 Validate that a  json file meets a required schema
