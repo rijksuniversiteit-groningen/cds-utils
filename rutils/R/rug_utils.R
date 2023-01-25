@@ -1,14 +1,15 @@
-#' Validate that a  json file meets a required schema
+#' Validate that a JSON file meets a required schema
 #'
-#' @param params a json file to be validated against a schema
-#' @param pschema a predefined json schema
-#' @param cpackage the package that contains the JSON schema
+#' @param jsonparams A JSON file to be validated against a schema
+#' @param jsonschema A predefined JSON schema
+#' @param cds_package The package that contains the JSON schema
 #'
 #' @export
-validate_parameters <- function(params,pschema="pca_projection_schema.json",cpackage = "rvispack"){
-  schemafile <- base::system.file("extdata", pschema, package = cpackage)
+validate_parameters <- function(jsonparams, jsonschema, cds_package = "rugplot"){
+  schemafile <- base::system.file("extdata", jsonschema, package = cds_package)
   cat(paste("Schema filename",schemafile))
-  jsonvalidate::json_validate(params,schemafile,verbose=TRUE,error=TRUE)
+  jsonvalidate::json_validate(jsonparams,schemafile,verbose=TRUE,error=TRUE)
+  validate_json_file(jsonparams)
 }
 
 #' Reads columns from a file in table format
@@ -43,22 +44,22 @@ read_data <- function(filename,select_columns){
 
 #' This function validates a json structure
 #'
-#' @param fileparams a json structure stored in a file name to be validated
+#' @param jsonparams a json structure stored in a file name to be validated
 #'
 #' @return an R list of parameters extracted from the json structure
 #' @export
 #'
 # #' @examples
-validate_json_file <- function(fileparams) {
+validate_json_file <- function(jsonparams) {
   if (file.exists(fileparams)){
-    tryCatch(lp <-  jsonlite::fromJSON(fileparams),
+    tryCatch(lp <-  jsonlite::fromJSON(jsonparams),
              error = function(c) {
-               c$message <- paste0(c$message, " (in ", fileparams, ")")
+               c$message <- paste0(c$message, " (in ", jsonparams, ")")
                stop(c)
              }
     )
   } else {
-    message <- paste0("Parameter file '", fileparams, "' not found.")
+    message <- paste0("Parameter file '", jsonparams, "' not found.")
     stop(message)
   }
 }
@@ -73,9 +74,10 @@ validate_json_file <- function(fileparams) {
 #' @export
 #'
 # #' @examples
-display_schema <- function(jsonschema,cds_package="rvispack") {
-  jsfile <- system.file("extdata", pschema=jsonschema, package = cds_package)
+display_schema <- function(jsonschema,cds_package="rugplot") {
+  jsfile <- system.file("extdata",jsonschema, package = cds_package)
   strschema <- paste(readLines(jsfile),collapse="\n")
   class(strschema)
   cat(jsonlite::prettify(strschema))
 }
+
