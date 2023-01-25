@@ -1,6 +1,6 @@
 Package: rugutils
 Type: Package
-Title: Utility functions for the Docker-cds project
+Title: Utility functions for the rugplot package
 Version: 0.1.0
 Author: Venustiano Soancatl Aguilar
 Maintainer: The package maintainer <v.soancatl.aguilar@rug.nl>
@@ -14,3 +14,7 @@ Imports:
     data.table,
     jsonlite,
     jsonvalidate
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

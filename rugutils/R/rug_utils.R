@@ -6,8 +6,9 @@
 #'
 #' @export
 validate_parameters <- function(jsonparams, jsonschema, cds_package = "rugplot"){
-  schemafile <- base::system.file("extdata", jsonschema, package = cds_package)
-  cat(paste("Schema filename",schemafile))
+  schemafile <- system.file("extdata", jsonschema, package = cds_package)
+  #schemafile <- file.path(find.package(cds_package), "extdata",jsonschema)
+  cat(paste("\nSchema filename: ",schemafile),"\n")
   jsonvalidate::json_validate(jsonparams,schemafile,verbose=TRUE,error=TRUE)
   validate_json_file(jsonparams)
 }
@@ -51,7 +52,7 @@ read_data <- function(filename,select_columns){
 #'
 # #' @examples
 validate_json_file <- function(jsonparams) {
-  if (file.exists(fileparams)){
+  if (file.exists(jsonparams)){
     tryCatch(lp <-  jsonlite::fromJSON(jsonparams),
              error = function(c) {
                c$message <- paste0(c$message, " (in ", jsonparams, ")")
